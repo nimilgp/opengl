@@ -2,11 +2,31 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import time
+import math
 
+bushesAt = [[0,300,100],[100,300,50],[200,300,75],[600,300,50],[675,300,75],[800,300,90]]
 spotsToPaint = []
 allThePaintedSpots = []
 spot_height = 1
 stickMan = [100,200]
+
+def green_circle(centre_x,centre_y,radii):
+    glColor3ub(6,89,40)
+    glBegin(GL_TRIANGLE_FAN)
+    glVertex2f(centre_x,centre_y)
+    for i in range(300+1):
+        theta = i*(2.0*math.pi/300)
+        x =  centre_x + radii*math.cos(theta)
+        y =  centre_y + radii*math.sin(theta)
+        glVertex2f(x,y)
+    glEnd()
+
+def bushes():
+    glColor3ub(6,89,40)
+    glRectf(0,200,800,300)
+    global bushesAt
+    for bush in bushesAt:
+        green_circle(bush[0],bush[1],bush[2])
 
 def head():
     pass
@@ -89,6 +109,7 @@ def draw_screen():
     time.sleep(0.01)
     sky()
     ground()
+    bushes()
     uncolored_house_struct()
     door()
     chimmeny()
