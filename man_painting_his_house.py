@@ -6,6 +6,14 @@ import time
 spotsToPaint = []
 allThePaintedSpots = []
 spot_height = 1
+stickMan = [100,200]
+
+def head():
+    pass
+
+def stick_man():
+    global stickMan
+    pass
 
 def generate_spots(x,ystart,ystop):
     global spotsToPaint 
@@ -96,7 +104,7 @@ def iterate():
     glViewport(0, 0, 800, 800)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(0.0, 800, 0.0, 800, 0.0, 1.0)
+    glOrtho(0.0, 800, 0, 800, 0.0, 1.0)
     glMatrixMode (GL_MODELVIEW)
     glLoadIdentity()
 
