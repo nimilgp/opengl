@@ -4,7 +4,7 @@ from OpenGL.GLU import *
 
 allThePaintedSpots = [[200,200],[200,300]]
 
-def background():
+def sky():
     glColor3ub(103, 163, 252)   
     glRectf(0,0,800,800)
 
@@ -51,15 +51,16 @@ def chimmeny():
     glRectf(550,400,600,600)
 
 def roof():
-    glBegin(GL_TRIANGLES)
+    glBegin(GL_QUADS)
     glColor3ub(153, 29, 10)
-    glVertex2f(400.0,600.0)
     glVertex2f(100.0,400.0)
+    glVertex2f(300,500)
+    glVertex2f(500,500)
     glVertex2f(700.0,400.0)
     glEnd()
 
 def draw_screen():
-    background()
+    sky()
     ground()
     uncolored_house_struct()
     door()
