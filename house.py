@@ -3,50 +3,22 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import time
 
-spotsToPaint = [
-        [200,200],
-        [200,210],
-        [200,220],
-        [200,230],
-        [200,240],
-        [200,250],
-        [200,260],
-        [200,270],
-        [200,280],
-        [200,290],
-        [200,300],
-        [200,310],
-        [200,320],
-        [200,330],
-        [200,340],
-        [200,350],
-        [200,360],
-        [200,370],
-        [200,380],
-        [200,390],
-        [300,200],#next col
-        [300,210],
-        [300,220],
-        [300,230],
-        [300,240],
-        [300,250],
-        [300,260],
-        [300,270],
-        [300,280],
-        [300,290],
-        [300,300],
-        [300,310],
-        [300,320],
-        [300,330],
-        [300,340],
-        [300,350],
-        [300,360],
-        [300,370],
-        [300,380],
-        [300,390],
-        ]
-
+spotsToPaint = []
 allThePaintedSpots = []
+spot_height = 1
+
+def generate_spots(x,ystart,ystop):
+    global spotsToPaint 
+    for y in range(ystart,ystop):
+        spotsToPaint.append([x,y])
+generate_spots(200,200,400)
+generate_spots(250,200,400)
+generate_spots(300,200,400)
+generate_spots(350,350,400)
+generate_spots(400,350,400)
+generate_spots(450,200,400)
+generate_spots(500,200,400)
+generate_spots(550,200,400)
 
 def sky():
     glColor3ub(103, 163, 252)   
@@ -57,9 +29,9 @@ def ground():
     glRectf(0,0,800,200)
 
 def paint_spot(blx,bly):
+    global spot_height
     glColor3ub(188, 153, 115)
     spot_width = 50
-    spot_height = 10
     glRectf(blx, bly, blx+spot_width, bly+spot_height)
 
 def painted_spots_loop():
@@ -106,7 +78,7 @@ def roof():
     glEnd()
 
 def draw_screen():
-    time.sleep(0.2)
+    time.sleep(0.01)
     sky()
     ground()
     uncolored_house_struct()
