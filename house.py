@@ -1,8 +1,52 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+import time
 
-allThePaintedSpots = [[200,200],[200,300]]
+spotsToPaint = [
+        [200,200],
+        [200,210],
+        [200,220],
+        [200,230],
+        [200,240],
+        [200,250],
+        [200,260],
+        [200,270],
+        [200,280],
+        [200,290],
+        [200,300],
+        [200,310],
+        [200,320],
+        [200,330],
+        [200,340],
+        [200,350],
+        [200,360],
+        [200,370],
+        [200,380],
+        [200,390],
+        [300,200],#next col
+        [300,210],
+        [300,220],
+        [300,230],
+        [300,240],
+        [300,250],
+        [300,260],
+        [300,270],
+        [300,280],
+        [300,290],
+        [300,300],
+        [300,310],
+        [300,320],
+        [300,330],
+        [300,340],
+        [300,350],
+        [300,360],
+        [300,370],
+        [300,380],
+        [300,390],
+        ]
+
+allThePaintedSpots = []
 
 def sky():
     glColor3ub(103, 163, 252)   
@@ -20,6 +64,8 @@ def paint_spot(blx,bly):
 
 def painted_spots_loop():
     global allThePaintedSpots
+    if len(allThePaintedSpots) == 0:
+        return
     for spot in allThePaintedSpots:
         paint_spot(spot[0],spot[1])
 
@@ -60,6 +106,7 @@ def roof():
     glEnd()
 
 def draw_screen():
+    time.sleep(0.2)
     sky()
     ground()
     uncolored_house_struct()
@@ -67,6 +114,11 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
+    global allThePaintedSpots
+    global spotsToPaint
+    if(len(spotsToPaint)>0):
+        tempSpot = spotsToPaint.pop(0)
+        allThePaintedSpots.append(tempSpot)
 
 def iterate():
     glViewport(0, 0, 800, 800)
