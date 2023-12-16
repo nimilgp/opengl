@@ -2,6 +2,19 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
+allThePaintedSpots = [[200,200],[200,300]]
+
+def paint_spot(blx,bly):
+    glColor3ub(188, 153, 115)
+    spot_width = 50
+    spot_height = 10
+    glRectf(blx, bly, blx+spot_width, bly+spot_height)
+
+def painted_spots_loop():
+    global allThePaintedSpots
+    for spot in allThePaintedSpots:
+        paint_spot(spot[0],spot[1])
+
 def uncolored_house_struct():
     glColor3ub(170, 136, 100)   
     glRectf(200,200,600,400)
@@ -27,6 +40,7 @@ def uncolored_house():
     door()
     chimmeny()
     roof()
+    painted_spots_loop()
 
 def iterate():
     glViewport(0, 0, 800, 800)
