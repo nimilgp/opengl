@@ -10,6 +10,11 @@ allThePaintedSpots = []
 spot_height = 1
 stickMan = [100,200]
 
+def stump():
+    pass
+def pine_tree():
+    pass
+
 def green_circle(centre_x,centre_y,radii):
     glColor3ub(6,89,40)
     glBegin(GL_TRIANGLE_FAN)
