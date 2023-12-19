@@ -4,16 +4,39 @@ from OpenGL.GLU import *
 import time
 import math
 
-bushesAt = [[0,300,100],[100,300,50],[200,300,75],[600,300,50],[675,300,75],[800,300,90]]
+bushesAt = [[0,300,100],[100,300,50],
+            [200,300,75],[600,300,50],
+            [675,300,75],[800,300,90]]
 spotsToPaint = []
 allThePaintedSpots = []
 spot_height = 1
 stickMan = [100,200]
+treeVal = [[100,200,150,(71,46,1),(59,104,9)],
+           [800,200,120,(72,45,2),(58,115,8)],
+           [600,200,140,(73,44,2),(57,146,7)],
+           [300,200,120,(74,43,4),(56,137,6)],
+           [700,200,130,(75,42,5),(55,108,5)],
+           [200,200,110,(76,41,6),(54,149,4)]]
 
-def stump():
-    pass
-def pine_tree():
-    pass
+def pine_tree(x,y,size,trunkclr,leafclr):
+    glColor3ub(*trunkclr)
+    glRectf(x+0.25*size,y,x+0.75*size,y+2*size)
+    glColor3ub(*leafclr) # the `*` is used for unpacking the parameter from tuple
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x-size,y+2*size)
+    glVertex2f(x+2*size,y+2*size)
+    glVertex2f(x+size/2,y+4*size)
+    glEnd()
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x-size/2,y+3*size)
+    glVertex2f(x+1.5*size,y+3*size)
+    glVertex2f(x+size/2,y+5*size)
+    glEnd()
+
+def pineTrees():
+    global treeVal
+    for tree in treeVal:
+        pine_tree(tree[0],tree[1],tree[2],tree[3],tree[4])
 
 def green_circle(centre_x,centre_y,radii):
     glColor3ub(6,89,40)
@@ -114,6 +137,8 @@ def draw_screen():
     time.sleep(0.01)
     sky()
     ground()
+    #pine_tree(100,300,100)
+    pineTrees()
     bushes()
     uncolored_house_struct()
     door()
