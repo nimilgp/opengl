@@ -123,6 +123,9 @@ def door():
 def chimmeny():
     glColor3ub(127, 96, 63)
     glRectf(550,400,600,600)
+    glColor3ub(153, 29, 10)
+    glRectf(545,600,605,620)
+
 
 def roof():
     glBegin(GL_QUADS)
