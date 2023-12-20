@@ -12,11 +12,62 @@ allThePaintedSpots = []
 spot_height = 1
 stickMan = [100,200]
 treeVal = [[100,200,150,(71,46,1),(59,104,9)],
-           [800,200,120,(72,45,2),(58,115,8)],
+           [400,200,120,(72,45,2),(58,115,8)],
            [600,200,140,(73,44,2),(57,146,7)],
            [300,200,120,(74,43,4),(56,137,6)],
-           [700,200,130,(75,42,5),(55,108,5)],
-           [200,200,110,(76,41,6),(54,149,4)]]
+           [700,200,100,(75,42,5),(55,108,5)],
+           [200,200,110,(76,41,6),(54,149,4)],
+           [-50,250,100,(75,42,5),(55,160,5)]]
+
+def man(centre_x,centre_y):
+    #head
+    px = centre_x
+    py = centre_y
+    radii = 25
+    glColor3ub(0,0,0)
+    glBegin(GL_TRIANGLE_FAN)
+    glVertex2f(centre_x,centre_y)
+    for i in range(300+1):
+        theta = i*(2.0*math.pi/300)
+        x =  centre_x + radii*math.cos(theta)
+        y =  centre_y + radii*math.sin(theta)
+        glVertex2f(x,y)
+    glEnd()
+    #body
+    body = 60
+    glLineWidth(10)
+    glBegin(GL_LINES)
+    glVertex2f(px,py-radii)
+    glVertex2f(px,py-body)
+    glEnd()
+    #legs
+    legGap = 10
+    leg = 100
+    glBegin(GL_LINES)
+    glVertex2f(px,py-body)
+    glVertex2f(px-legGap,py-radii-leg)
+    glEnd()
+    glBegin(GL_LINES)
+    glVertex2f(px,py-body)
+    glVertex2f(px+legGap,py-radii-leg)
+    glEnd()
+    #hands
+    rightHand = 100
+    hand = 50
+    offset = 50
+    glBegin(GL_LINES)#right hand (painting hand)
+    glVertex2f(px,py-radii)
+    glVertex2f(px+offset,py-radii+rightHand)
+    glEnd()
+    glBegin(GL_LINES)#left hand in pocket
+    glVertex2f(px,py-radii)
+    glVertex2f(px-offset/2,py-radii-hand/2)
+    glEnd()
+    glBegin(GL_LINES)
+    glVertex2f(px-offset/2,py-radii-hand/2)
+    glVertex2f(px,py-radii-hand)
+    glEnd()
+
 
 def pine_tree(x,y,size,trunkclr,leafclr):
     glColor3ub(*trunkclr)
@@ -55,13 +106,6 @@ def bushes():
     global bushesAt
     for bush in bushesAt:
         green_circle(bush[0],bush[1],bush[2])
-
-def head():
-    pass
-
-def stick_man():
-    global stickMan
-    pass
 
 def generate_spots(x,ystart,ystop):
     global spotsToPaint 
@@ -140,7 +184,6 @@ def draw_screen():
     time.sleep(0.01)
     sky()
     ground()
-    #pine_tree(100,300,100)
     pineTrees()
     bushes()
     uncolored_house_struct()
@@ -153,6 +196,7 @@ def draw_screen():
     if(len(spotsToPaint)>0):
         tempSpot = spotsToPaint.pop(0)
         allThePaintedSpots.append(tempSpot)
+    man(180,320)
 
 def iterate():
     glViewport(0, 0, 800, 800)
