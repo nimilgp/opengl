@@ -18,6 +18,10 @@ treeVal = [[100,200,150,(71,46,1),(59,104,9)],
            [700,200,100,(75,42,5),(55,108,5)],
            [200,200,110,(76,41,6),(54,149,4)],
            [-50,250,100,(75,42,5),(55,160,5)]]
+moveRight = False
+#starT = 0
+#curT = 0
+#timeDiffReqSpots = 10
 
 def man(centre_x,centre_y):
     #head
@@ -181,6 +185,10 @@ def roof():
     glEnd()
 
 def draw_screen():
+    #global startT,curT,timeDiffReqSpots
+    #curT = time.time_ns()
+    #timeDiff = curT - startT
+    #print(curT)
     time.sleep(0.01)
     sky()
     ground()
@@ -191,11 +199,13 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
-    global allThePaintedSpots
-    global spotsToPaint
-    if(len(spotsToPaint)>0):
-        tempSpot = spotsToPaint.pop(0)
-        allThePaintedSpots.append(tempSpot)
+    global allThePaintedSpots,spotsToPaint,moveRight
+    if (moveRight == False):
+            if(len(spotsToPaint)>0):
+                tempSpot = spotsToPaint.pop(0)
+                allThePaintedSpots.append(tempSpot)
+                if(tempSpot[1] == 399):
+                    moveRight = True
     man(180,320)
 
 def iterate():
@@ -213,6 +223,7 @@ def showScreen():
     draw_screen()
     glutSwapBuffers()
 
+startT = time.time_ns()
 glutInit()
 glutInitDisplayMode(GLUT_RGBA)
 glutInitWindowSize(800, 800)
