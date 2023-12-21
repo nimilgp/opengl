@@ -21,6 +21,7 @@ treeVal = [[100,200,150,(71,46,1),(59,104,9)],
 moveRight = False
 manX = 150
 manY = 320
+manSpeed = 0.3
 #starT = 0
 #curT = 0
 #timeDiffReqSpots = 10
@@ -210,16 +211,14 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
-    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY
-    if (moveRight == False):
-            if(len(spotsToPaint)>0):
-                tempSpot = spotsToPaint.pop(0)
-                allThePaintedSpots.append(tempSpot)
-                man(manX,manY,*tempSpot)
-                if(tempSpot[1] == 399):
-                    #moveRight = True
-                    pass
-    manX += 5
+    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY,manSpeed
+    if(len(spotsToPaint)>0):
+        tempSpot = spotsToPaint.pop(0)
+        allThePaintedSpots.append(tempSpot)
+        man(manX,manY,*tempSpot)
+        if(len(spotsToPaint)==0):
+            time.sleep(2)
+    manX += manSpeed
 
 def iterate():
     glViewport(0, 0, 800, 800)
