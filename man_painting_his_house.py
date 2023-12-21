@@ -22,11 +22,15 @@ moveRight = False
 manX = 150
 manY = 320
 manSpeed = 0.3
-#starT = 0
-#curT = 0
-#timeDiffReqSpots = 10
+legGap = 20
+minlegGap = 0
+maxlegGap = 20
+legDel = 1
+slow = 5
+sc = 0
 
 def man(centre_x,centre_y,rhx,rhy):
+    global legGap
     #head
     px = centre_x
     py = centre_y
@@ -48,7 +52,6 @@ def man(centre_x,centre_y,rhx,rhy):
     glVertex2f(px,py-body)
     glEnd()
     #legs
-    legGap = 10
     leg = 100
     glBegin(GL_LINES)
     glVertex2f(px,py-body)
@@ -162,7 +165,6 @@ def uncolored_house_struct():
     glRectf(200,200,600,400)
 
 def door_handle():
-    #glColor3ub(141, 140, 140)   
     glColor3ub(35, 35, 35)   
     glRectf(425,250,435,275)
 
@@ -197,10 +199,6 @@ def roof():
     glEnd()
 
 def draw_screen():
-    #global startT,curT,timeDiffReqSpots
-    #curT = time.time_ns()
-    #timeDiff = curT - startT
-    #print(curT)
     time.sleep(0.01)
     sky()
     ground()
@@ -211,7 +209,7 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
-    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY,manSpeed
+    global allThePaintedSpots,spotsToPaint,manX,manY,manSpeed,legGap,minlegGap,maxlegGap,legDel,slow,sc
     if(len(spotsToPaint)>0):
         tempSpot = spotsToPaint.pop(0)
         allThePaintedSpots.append(tempSpot)
@@ -219,7 +217,13 @@ def draw_screen():
         if(len(spotsToPaint)==0):
             time.sleep(2)
     manX += manSpeed
-
+    if(legGap == maxlegGap or legGap == minlegGap):
+        legDel *= -1
+        legGap += legDel
+    if(sc == slow):
+        legGap += legDel
+        sc = 0
+    sc+=1
 def iterate():
     glViewport(0, 0, 800, 800)
     glMatrixMode(GL_PROJECTION)
