@@ -19,6 +19,8 @@ treeVal = [[100,200,150,(71,46,1),(59,104,9)],
            [200,200,110,(76,41,6),(54,149,4)],
            [-50,250,100,(75,42,5),(55,160,5)]]
 moveRight = False
+manX = 150
+manY = 320
 #starT = 0
 #curT = 0
 #timeDiffReqSpots = 10
@@ -61,7 +63,11 @@ def man(centre_x,centre_y,rhx,rhy):
     offset = 50
     glBegin(GL_LINES)#right hand (painting hand)
     glVertex2f(px,py-radii)
+    glVertex2f(rhx+offset/2,rhy)
+    glEnd()
+    glBegin(GL_LINES)
     glVertex2f(rhx,rhy)
+    glVertex2f(rhx+offset,rhy)
     glEnd()
     glBegin(GL_LINES)#left hand in pocket
     glVertex2f(px,py-radii)
@@ -69,7 +75,7 @@ def man(centre_x,centre_y,rhx,rhy):
     glEnd()
     glBegin(GL_LINES)
     glVertex2f(px-offset/2,py-radii-hand/2)
-    glVertex2f(rhx,rhy)
+    glVertex2f(px,py-radii-hand)
     glEnd()
 
 
@@ -115,14 +121,19 @@ def generate_spots(x,ystart,ystop):
     global spotsToPaint 
     for y in range(ystart,ystop):
         spotsToPaint.append([x,y])
+
+def generate_spotsr(x,ystart,ystop):
+    global spotsToPaint 
+    for y in range(ystop-1,ystart-1,-1):
+        spotsToPaint.append([x,y])
 generate_spots(200,200,400)
-generate_spots(250,200,400)
+generate_spotsr(250,200,400)
 generate_spots(300,200,400)
-generate_spots(350,350,400)
+generate_spotsr(350,350,400)
 generate_spots(400,350,400)
-generate_spots(450,200,400)
+generate_spotsr(450,200,400)
 generate_spots(500,200,400)
-generate_spots(550,200,400)
+generate_spotsr(550,200,400)
 
 def sky():
     glColor3ub(103, 163, 252)   
@@ -199,14 +210,16 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
-    global allThePaintedSpots,spotsToPaint,moveRight
+    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY
     if (moveRight == False):
             if(len(spotsToPaint)>0):
                 tempSpot = spotsToPaint.pop(0)
                 allThePaintedSpots.append(tempSpot)
-                man(180,320,*tempSpot)
+                man(manX,manY,*tempSpot)
                 if(tempSpot[1] == 399):
-                    moveRight = True
+                    #moveRight = True
+                    pass
+    manX += 5
 
 def iterate():
     glViewport(0, 0, 800, 800)
