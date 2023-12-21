@@ -23,7 +23,7 @@ moveRight = False
 #curT = 0
 #timeDiffReqSpots = 10
 
-def man(centre_x,centre_y):
+def man(centre_x,centre_y,rhx,rhy):
     #head
     px = centre_x
     py = centre_y
@@ -61,7 +61,7 @@ def man(centre_x,centre_y):
     offset = 50
     glBegin(GL_LINES)#right hand (painting hand)
     glVertex2f(px,py-radii)
-    glVertex2f(px+offset,py-radii+rightHand)
+    glVertex2f(rhx,rhy)
     glEnd()
     glBegin(GL_LINES)#left hand in pocket
     glVertex2f(px,py-radii)
@@ -69,7 +69,7 @@ def man(centre_x,centre_y):
     glEnd()
     glBegin(GL_LINES)
     glVertex2f(px-offset/2,py-radii-hand/2)
-    glVertex2f(px,py-radii-hand)
+    glVertex2f(rhx,rhy)
     glEnd()
 
 
@@ -204,9 +204,9 @@ def draw_screen():
             if(len(spotsToPaint)>0):
                 tempSpot = spotsToPaint.pop(0)
                 allThePaintedSpots.append(tempSpot)
+                man(180,320,*tempSpot)
                 if(tempSpot[1] == 399):
                     moveRight = True
-    man(180,320)
 
 def iterate():
     glViewport(0, 0, 800, 800)
