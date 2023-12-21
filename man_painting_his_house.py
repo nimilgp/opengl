@@ -26,7 +26,7 @@ legGap = 20
 minlegGap = 0
 maxlegGap = 20
 legDel = 1
-slow = 5
+slow = 3
 sc = 0
 
 def man(centre_x,centre_y,rhx,rhy):
