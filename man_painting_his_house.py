@@ -21,12 +21,15 @@ treeVal = [[100,200,150,(71,46,1),(59,104,9)],
 moveRight = False
 manX = 150
 manY = 320
+offset = 50
+offsetdelta = 1
 manSpeed = 0.3
 #starT = 0
 #curT = 0
 #timeDiffReqSpots = 10
 
 def man(centre_x,centre_y,rhx,rhy):
+    global offset
     #head
     px = centre_x
     py = centre_y
@@ -61,7 +64,6 @@ def man(centre_x,centre_y,rhx,rhy):
     #hands
     rightHand = 100
     hand = 50
-    offset = 50
     glBegin(GL_LINES)#right hand (painting hand)
     glVertex2f(px,py-radii)
     glVertex2f(rhx+offset/2,rhy)
@@ -211,7 +213,7 @@ def draw_screen():
     chimmeny()
     roof()
     painted_spots_loop()
-    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY,manSpeed
+    global allThePaintedSpots,spotsToPaint,moveRight,manX,manY,manSpeed,offset,offsetdelta
     if(len(spotsToPaint)>0):
         tempSpot = spotsToPaint.pop(0)
         allThePaintedSpots.append(tempSpot)
@@ -219,6 +221,11 @@ def draw_screen():
         if(len(spotsToPaint)==0):
             time.sleep(2)
     manX += manSpeed
+    if(offset==50):
+        offsetdelta *-1
+    elif(offset==0):
+        offsetdelta *-1
+    offset += offsetdelta
 
 def iterate():
     glViewport(0, 0, 800, 800)
