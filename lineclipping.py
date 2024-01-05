@@ -144,8 +144,14 @@ def display():
     gluOrtho2D(0, window_size, 0, window_size)
     glClear(GL_COLOR_BUFFER_BIT)
     plot_clipping_window()
-    p1 = [window_size / 2, window_size - 50]
-    p2 = [window_size - 50, window_size / 2]
+    #p1 = [window_size / 2, window_size - 50]
+    #p2 = [window_size - 50, window_size / 2]
+    x1 = int(input("enter x1:"))
+    y1 = int(input("enter y1:"))
+    x2 = int(input("enter x2:"))
+    y2 = int(input("enter y2:"))
+    p1=[x1,y1]
+    p2=[x2,y2]
     print("point to be plotted", p1, p2)
     plot_line(p1, p2, [0, 1, 1])
     plot_clipped_line(p1, p2)
